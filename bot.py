@@ -7,7 +7,7 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 genai.configure(api_key=GEMINI_API_KEY)
 
-model = genai.GenerativeModel("gemini-1.5-pro")
+model = genai.GenerativeModel("models/gemini-1.5-flash")
 
 intents = discord.Intents.default()
 intents.message_content = True
