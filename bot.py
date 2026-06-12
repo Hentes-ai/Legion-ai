@@ -1,1 +1,1 @@
-print("Hentes AI indul...")
+
