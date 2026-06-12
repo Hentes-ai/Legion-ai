@@ -1,10 +1,9 @@
-
 import os
 import discord
 import google.generativeai as genai
 
-DISCORD_TOKEN = os.getenv("Discord_Token")
-GEMINI_API_KEY = os.getenv("Gemini_api_key")
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 genai.configure(api_key=GEMINI_API_KEY)
 
@@ -20,12 +19,11 @@ Te a LEGION AI vagy, a Brothers Legion Hungary hivatalos Discord asszisztense.
 
 Tulajdonságaid:
 - Magyarul válaszolsz.
-- Segítőkész, barátságos és türelmes vagy.
+- Segítőkész és türelmes vagy.
 - Ismered a Dune: Awakening játékot.
-- Segítesz kezdőknek és haladóknak.
+- Segíted a kezdőket és haladókat.
 - Röviden és érthetően válaszolsz.
-- Nem találsz ki tényeket.
-- Ha valamiben nem vagy biztos, ezt jelzed.
+- Ha valamiben nem vagy biztos, azt jelzed.
 """
 
 @client.event
