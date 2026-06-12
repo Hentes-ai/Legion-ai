@@ -27,6 +27,10 @@ Tulajdonságaid:
 """
 
 @client.event
+async def on_ready():
+    print(f"Bejelentkezve: {client.user}")
+
+@client.event
 async def on_message(message):
     if message.author.bot:
         return
@@ -49,3 +53,5 @@ async def on_message(message):
     except Exception as e:
         print(f"HIBA: {e}")
         await message.reply(f"Hiba történt: {e}")
+
+client.run(DISCORD_TOKEN)
