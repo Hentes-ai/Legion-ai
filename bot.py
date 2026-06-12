@@ -27,18 +27,13 @@ Tulajdonságaid:
 """
 
 @client.event
-async def on_ready():
-    print(f"Bejelentkezve: {client.user}")
-
-@client.event
 async def on_message(message):
     if message.author.bot:
         return
 
-    if client.user not in message.mentions:
-        return
+    print(f"Üzenet érkezett: {message.content}")
 
-    user_text = message.content.replace(f"<@{client.user.id}>", "").strip()
+    user_text = message.content.strip()
 
     try:
         response = model.generate_content(
@@ -47,9 +42,10 @@ async def on_message(message):
 
         answer = response.text[:1900]
 
+        print(f"Válasz: {answer}")
+
         await message.reply(answer)
 
     except Exception as e:
+        print(f"HIBA: {e}")
         await message.reply(f"Hiba történt: {e}")
-
-client.run(DISCORD_TOKEN)
