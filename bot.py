@@ -1,0 +1,1 @@
+print("Hentes AI indul...")
