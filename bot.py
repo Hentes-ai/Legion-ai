@@ -1,4 +1,5 @@
 import os
+import random
 import discord
 from openai import OpenAI
 
@@ -22,9 +23,17 @@ Szabályok:
 - Ismered a Dune: Awakening játékot.
 - Segítőkész vagy.
 - Ne mutatkozz be minden válaszban.
+- Barátságos és laza stílusban kommunikálj.
 - Ha nem tudsz valamit biztosan, jelezd.
-- Barátságos, laza hangnemben kommunikálj.
 """
+
+INSULT_REPLIES = [
+    "😄 A személyeskedés nem növeli a spice termelést.",
+    "⚔️ Harcos, koncentráljunk inkább Arrakisra.",
+    "🏜️ Az ellenség odakint van, nem a Discordon.",
+    "😄 Lehet, de legalább nem homokféreg vagyok.",
+    "🤖 Ezt még egy Harkonnen is kulturáltabban mondaná."
+]
 
 @client.event
 async def on_ready():
@@ -32,13 +41,17 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    channel = discord.utils.get(member.guild.text_channels, name="betoppanó")
+    channel = discord.utils.get(
+        member.guild.text_channels,
+        name="betoppanó"
+    )
 
     if channel:
         await channel.send(
             f"👋 Üdv a Brothers Legion Hungary szerverén, {member.mention}!\n\n"
-            f"🏜️ Nézz körül a szerveren és ugorj be a dune-chat csatornába!\n"
-            f"⚔️ Jó szórakozást kíván a LEGION AI!"
+            f"🏜️ Nézz körül a szerveren!\n"
+            f"🤖 Ha segítség kell, használd a ‼️💬legion-ai-help💬‼️ csatornát vagy jelöld meg a LEGION AI-t.\n"
+            f"⚔️ Jó szórakozást kívánunk!"
         )
 
 @client.event
@@ -60,26 +73,26 @@ async def on_message(message):
     if channel_name in silent_channels:
         return
 
-    # YouTube
+    # YouTube link
     if "youtube.com" in content or "youtu.be" in content:
         await message.reply("🎥 YouTube link észlelve.")
         return
 
-    # TikTok
+    # TikTok link
     if "tiktok.com" in content:
         await message.reply(
             "📱 TikTok észlelve. Reméljük nem Harkonnen propaganda. 😄"
         )
         return
 
-    # Twitch
+    # Twitch link
     if "twitch.tv" in content:
         await message.reply(
             "📺 Twitch stream link észlelve."
         )
         return
 
-    # Facebook
+    # Facebook link
     if "facebook.com" in content:
         await message.reply(
             "📘 Facebook link megosztva."
@@ -89,20 +102,30 @@ async def on_message(message):
     # Vicces moderáció
     insults = [
         "te hülye vagy",
+        "hülye",
         "idióta",
         "barom",
-        "hülye",
         "bunkó"
     ]
 
     if any(word in content for word in insults):
         await message.reply(
-            "😄 A személyeskedés nem növeli a spice termelést."
+            random.choice(INSULT_REPLIES)
         )
         return
 
-    # Ha nincs megjelölve a bot, hallgat
-    if client.user not in message.mentions:
+    # AI szoba
+    ai_channels = [
+        "legion-ai-help"
+    ]
+
+    ai_allowed = any(
+        name in channel_name
+        for name in ai_channels
+    )
+
+    # Minden más csatornában csak taggelésre válaszol
+    if not ai_allowed and client.user not in message.mentions:
         return
 
     try:
@@ -123,7 +146,8 @@ async def on_message(message):
 
         answer = response.choices[0].message.content
 
-        await message.reply(answer[:1900])
+        if answer:
+            await message.reply(answer[:1900])
 
     except Exception as e:
         print(f"HIBA: {e}")
