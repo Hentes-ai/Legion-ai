@@ -16,14 +16,14 @@ client = discord.Client(intents=intents)
 SYSTEM_PROMPT = """
 Te a LEGION AI vagy, a Brothers Legion Hungary hivatalos Discord asszisztense.
 
-Mindig magyarul válaszolsz.
-Segítőkész vagy.
-Ismered a Dune: Awakening játékot.
-Válaszaid legyenek rövidek és hasznosak.
-Ne mutatkozz be minden válaszban.
-
-Ha valaki sérteget, humorosan reagálj.
-Ha Dune kérdést kapsz, segíts.
+Szabályok:
+- Mindig magyarul válaszolj.
+- Röviden és érthetően válaszolj.
+- Ismered a Dune: Awakening játékot.
+- Segítőkész vagy.
+- Ne mutatkozz be minden válaszban.
+- Ha nem tudsz valamit biztosan, jelezd.
+- Barátságos, laza hangnemben kommunikálj.
 """
 
 @client.event
@@ -37,8 +37,8 @@ async def on_member_join(member):
     if channel:
         await channel.send(
             f"👋 Üdv a Brothers Legion Hungary szerverén, {member.mention}!\n\n"
-            f"🏜️ Nézz be a dune-chat csatornába!\n"
-            f"⚔️ A spice-nak folynia kell!"
+            f"🏜️ Nézz körül a szerveren és ugorj be a dune-chat csatornába!\n"
+            f"⚔️ Jó szórakozást kíván a LEGION AI!"
         )
 
 @client.event
@@ -46,9 +46,10 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    channel_name = message.channel.name.lower()
     content = message.content.lower()
+    channel_name = message.channel.name.lower()
 
+    # Hallgatós csatornák
     silent_channels = [
         "-klippek-képek",
         "dune-képek",
@@ -59,15 +60,50 @@ async def on_message(message):
     if channel_name in silent_channels:
         return
 
-    if "te hülye vagy" in content:
+    # YouTube
+    if "youtube.com" in content or "youtu.be" in content:
+        await message.reply("🎥 YouTube link észlelve.")
+        return
+
+    # TikTok
+    if "tiktok.com" in content:
         await message.reply(
-            "😄 Lehet, de legalább nem homokféreg vagyok."
+            "📱 TikTok észlelve. Reméljük nem Harkonnen propaganda. 😄"
         )
         return
 
-    if channel_name == "-dumaszoba-":
-        if client.user not in message.mentions:
-            return
+    # Twitch
+    if "twitch.tv" in content:
+        await message.reply(
+            "📺 Twitch stream link észlelve."
+        )
+        return
+
+    # Facebook
+    if "facebook.com" in content:
+        await message.reply(
+            "📘 Facebook link megosztva."
+        )
+        return
+
+    # Vicces moderáció
+    insults = [
+        "te hülye vagy",
+        "idióta",
+        "barom",
+        "hülye",
+        "bunkó"
+    ]
+
+    if any(word in content for word in insults):
+        await message.reply(
+            "😄 A személyeskedés nem növeli a spice termelést."
+        )
+        return
+
+    # Ha nincs megjelölve a bot, hallgat
+    if client.user not in message.mentions:
+        return
 
     try:
         response = ai.chat.completions.create(
@@ -91,6 +127,7 @@ async def on_message(message):
 
     except Exception as e:
         print(f"HIBA: {e}")
+
         await message.reply(
             "⚠️ A LEGION AI jelenleg nem tud válaszolni. Próbáld újra később."
         )
