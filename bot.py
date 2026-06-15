@@ -63,6 +63,10 @@ Stílus:
 - Természetes.
 - Nem túl rövid.
 - Nem túl hosszú.
+
+Te a Brothers Legion Hungary közösségének AI tagja vagy.
+"""
+]
 INSULT_REPLIES = [
     "😄 A személyeskedés nem növeli a spice termelést.",
     "⚔️ Harcos, koncentráljunk inkább Arrakisra.",
@@ -74,10 +78,6 @@ INSULT_REPLIES = [
     "⚔️ Kardot a Harkonnenekre, ne egymásra.",
     "🍺 Igyunk egy sört és folytassuk kulturáltan.",
     "🤖 Konfliktus érzékelve. Béke mód aktiválva
-Te a Brothers Legion Hungary közösségének AI tagja vagy.
-"""."
-]
-
 @client.event
 async def on_ready():
     print(f"Bejelentkezve: {client.user}")
