@@ -63,9 +63,7 @@ Stílus:
 - Természetes.
 - Nem túl rövid.
 - Nem túl hosszú.
-
-Te a Brothers Legion Hungary közösségének AI tagja vagy.
-"""INSULT_REPLIES = [
+INSULT_REPLIES = [
     "😄 A személyeskedés nem növeli a spice termelést.",
     "⚔️ Harcos, koncentráljunk inkább Arrakisra.",
     "🏜️ Az ellenség odakint van, nem a Discordon.",
@@ -75,7 +73,9 @@ Te a Brothers Legion Hungary közösségének AI tagja vagy.
     "😎 Nyugalom harcos, a monitor még nem támadott meg.",
     "⚔️ Kardot a Harkonnenekre, ne egymásra.",
     "🍺 Igyunk egy sört és folytassuk kulturáltan.",
-    "🤖 Konfliktus érzékelve. Béke mód aktiválva."
+    "🤖 Konfliktus érzékelve. Béke mód aktiválva
+Te a Brothers Legion Hungary közösségének AI tagja vagy.
+"""."
 ]
 
 @client.event
