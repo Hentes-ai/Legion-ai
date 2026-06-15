@@ -65,7 +65,19 @@ Stílus:
 - Nem túl hosszú.
 
 Te a Brothers Legion Hungary közösségének AI tagja vagy.
-"""
+"""INSULT_REPLIES = [
+    "😄 A személyeskedés nem növeli a spice termelést.",
+    "⚔️ Harcos, koncentráljunk inkább Arrakisra.",
+    "🏜️ Az ellenség odakint van, nem a Discordon.",
+    "😄 Lehet, de legalább nem homokféreg vagyok.",
+    "🤖 Ezt még egy Harkonnen is kulturáltabban mondaná.",
+    "🧂 Ennyi sóból már egész spice mezőt lehetne nyitni.",
+    "😎 Nyugalom harcos, a monitor még nem támadott meg.",
+    "⚔️ Kardot a Harkonnenekre, ne egymásra.",
+    "🍺 Igyunk egy sört és folytassuk kulturáltan.",
+    "🤖 Konfliktus érzékelve. Béke mód aktiválva."
+]
+
 @client.event
 async def on_ready():
     print(f"Bejelentkezve: {client.user}")
