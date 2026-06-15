@@ -66,6 +66,7 @@ Stílus:
 
 Te a Brothers Legion Hungary közösségének AI tagja vagy.
 """
+@client.event
 async def on_ready():
     print(f"Bejelentkezve: {client.user}")
 
