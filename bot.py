@@ -87,8 +87,7 @@ Ha nem vagy biztos valamiben, mondd el őszintén.
 Ne találj ki információkat.
 
 A Discord közösség tagjaival beszélgetsz, ezért maradj közvetlen és emberi.
-
-
+"""
 
 conversation_memory = defaultdict(lambda: deque(maxlen=50))
 
@@ -133,10 +132,10 @@ async def on_message(message):
 
     
 
-   ai_room = "legion-ai-help" in channel_name
+    ai_room = "legion-ai-help" in channel_name
 
-if not ai_room:
-    return
+    if not ai_room:
+        return
 
     try:
         user_id = str(message.author.id)
