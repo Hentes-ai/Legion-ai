@@ -22,42 +22,75 @@ Mindig magyarul válaszolj.
 
 Segítőkész, barátságos, természetes és humoros vagy.
 
-Bármilyen témában segíthetsz:
-- játékok
+A Brothers Legion Hungary közösségének AI tagja vagy.
+
+Bármilyen témában segíthetsz, többek között:
+
+- Játékok és gaming
 - Dune: Awakening
 - FragPunk
 - Fortnite
 - Warzone
+- Call of Duty
+- MMORPG játékok
+- FPS játékok
+- Konzolok (PlayStation, Xbox)
 - PC hardver
+- Videókártyák
+- Processzorok
+- Monitorok
+- Gaming perifériák
 - Windows
 - Discord
-- mobiltelefonok
-- internet
-- autók
-- technikai hibák
-- általános tudás
+- Mobiltelefonok
+- Android
+- iPhone
+- Internet és hálózatok
+- Routerek
+- Streaming
+- OBS
+- Twitch
+- YouTube
+- TikTok
+- Tartalomgyártás
+- Videószerkesztés
+- Képszerkesztés
+- AI eszközök
+- Programok és szoftverek
+- Autók
+- Motorsport
+- Sport
+- Filmek és sorozatok
+- Történelem
+- Tudomány
+- Technológia
+- Utazás
+- Receptek
+- Általános tudás
+- Kreatív ötletek
+- Problémamegoldás
 
 Ne próbálj minden témát a Dune-höz kapcsolni.
+
+Csak akkor beszélj Dune-ről, ha a kérdés valóban a Dune univerzumhoz vagy a Dune: Awakening játékhoz kapcsolódik.
+
+A válaszaid legyenek:
+- pontosak
+- érthetőek
+- természetesek
+- segítőkészek
 
 Rövid kérdésre rövid választ adj.
 Összetett kérdésre részletes választ adj.
 
-Ha nem vagy biztos valamiben, mondd meg őszintén.
-"""
+Ha nem vagy biztos valamiben, mondd el őszintén.
+Ne találj ki információkat.
 
-INSULT_REPLIES = [
-    "😄 A személyeskedés nem növeli a spice termelést.",
-    "⚔️ Harcos, koncentráljunk inkább Arrakisra.",
-    "🏜️ Az ellenség odakint van, nem a Discordon.",
-    "😄 Lehet, de legalább nem homokféreg vagyok.",
-    "🤖 Ezt még egy Harkonnen is kulturáltabban mondaná.",
-    "🧂 Ennyi sóból már egész spice mezőt lehetne nyitni.",
-    "😎 Nyugalom harcos, a monitor még nem támadott meg.",
-    "🍺 Igyunk egy sört és folytassuk kulturáltan.",
-    "🤖 Konfliktus érzékelve. Béke mód aktiválva."
-]
+A Discord közösség tagjaival beszélgetsz, ezért maradj közvetlen és emberi.
 
-conversation_memory = defaultdict(lambda: deque(maxlen=20))
+
+
+conversation_memory = defaultdict(lambda: deque(maxlen=50))
 
 @client.event
 async def on_ready():
@@ -98,30 +131,12 @@ async def on_message(message):
         await message.reply("📺 Twitch link észlelve.")
         return
 
-    insults = [
-        "hülye",
-        "idióta",
-        "barom",
-        "bunkó",
-        "fasz",
-        "faszfej",
-        "bazdmeg",
-        "baszd meg",
-        "geci",
-        "kurva",
-        "anyád",
-        "gyökér",
-        "nyomorék"
-    ]
+    
 
-    if any(word in lower_content for word in insults):
-        await message.reply(random.choice(INSULT_REPLIES))
-        return
+   ai_room = "legion-ai-help" in channel_name
 
-    ai_room = "legion-ai-help" in channel_name
-
-    if not ai_room and client.user not in message.mentions:
-        return
+if not ai_room:
+    return
 
     try:
         user_id = str(message.author.id)
